@@ -206,7 +206,8 @@ nghttp.o: nghttp.cc /usr/include/stdc-predef.h nghttp.h nghttp2_config.h \
  /usr/include/asm/types.h /usr/include/asm-generic/types.h \
  /usr/include/asm-generic/int-ll64.h /usr/include/bits/statx-generic.h \
  /usr/include/bits/types/struct_statx_timestamp.h \
- /usr/include/bits/types/struct_statx.h ../lib/includes/nghttp2/nghttp2.h \
+ /usr/include/bits/types/struct_statx.h /usr/include/verto-module.h \
+ /usr/include/verto.h ../lib/includes/nghttp2/nghttp2.h \
  /usr/include/inttypes.h ../lib/includes/nghttp2/nghttp2ver.h \
  ../third-party/llhttp/include/llhttp.h memchunk.h /usr/include/sys/uio.h \
  /usr/include/bits/uio-ext.h /usr/include/c++/10.3.1/cassert \
@@ -610,6 +611,8 @@ nghttp2_config.h:
 /usr/include/bits/statx-generic.h:
 /usr/include/bits/types/struct_statx_timestamp.h:
 /usr/include/bits/types/struct_statx.h:
+/usr/include/verto-module.h:
+/usr/include/verto.h:
 ../lib/includes/nghttp2/nghttp2.h:
 /usr/include/inttypes.h:
 ../lib/includes/nghttp2/nghttp2ver.h:

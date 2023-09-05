@@ -44,7 +44,7 @@
 #include <openssl/ssl.h>
 
 #include <ev.h>
-
+#include <verto-module.h>
 #include <nghttp2/nghttp2.h>
 
 #include "llhttp.h"
@@ -130,8 +130,12 @@ struct ContinueTimer {
   // callback has not already been run
   void dispatch_continue();
 
-  struct ev_loop *loop;
+  struct ev_loop *loop; 
+  verto_ctx *verto_loop;
+
   ev_timer timer;
+  verto_ev *verto_timer;
+ 
 };
 
 struct Request {
@@ -269,17 +273,36 @@ struct HttpClient {
   // Used for parse the HTTP upgrade response from server
   std::unique_ptr<llhttp_t> htp;
   SessionTiming timing;
+
+
+
+
   ev_io wev;
+  verto_ev *verto_wev;
+
   ev_io rev;
+  verto_ev *verto_rev;
+
   ev_timer wt;
+  verto_ev *verto_wt;
+
   ev_timer rt;
+  verto_ev *verto_rt;
+
   ev_timer settings_timer;
+  verto_ev *verto_settings_timer;
+
+
+
   std::function<int(HttpClient &)> readfn, writefn;
   std::function<int(HttpClient &, const uint8_t *, size_t)> on_readfn;
   std::function<int(HttpClient &)> on_writefn;
   nghttp2_session *session;
   const nghttp2_session_callbacks *callbacks;
+
   struct ev_loop *loop;
+  verto_ctx *verto_loop;
+
   SSL_CTX *ssl_ctx;
   SSL *ssl;
   addrinfo *addrs;

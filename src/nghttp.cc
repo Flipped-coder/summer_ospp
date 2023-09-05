@@ -106,7 +106,13 @@ Config::Config()
       max_concurrent_streams(100),
       peer_max_concurrent_streams(100),
       multiply(1),
-      timeout(0.),
+
+
+      timeout(0.), 
+      verto_timeout(0.),
+
+
+
       window_bits(-1),
       connection_window_bits(-1),
       verbose(0),
@@ -421,7 +427,7 @@ void ContinueTimer::start() {
   //void *priv = verto_timer->priv;
   verto_del(verto_timer);
   verto_timer = verto_add_timeout(verto_loop, VERTO_EV_FLAG_NONE, verto_continue_timeout_cb, 1.0);
-  //verto_timer->priv = priv;
+  // verto_timer->priv = priv;
 }
 
 void ContinueTimer::stop() { 

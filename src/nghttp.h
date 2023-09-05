@@ -80,7 +80,12 @@ struct Config {
   ssize_t peer_max_concurrent_streams;
   int multiply;
   // milliseconds
+
+
   ev_tstamp timeout;
+  double    verto_timeout;
+
+
   int window_bits;
   int connection_window_bits;
   int verbose;

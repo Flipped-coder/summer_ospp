@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+libdir="/home/summer_ospp/lib"
+if [ -d "$libdir/.libs" ]; then
+    libdir="$libdir/.libs"
+fi
+
+export CGO_CFLAGS="-I/home/summer_ospp/lib/includes -I/home/summer_ospp/lib/includes -g -O2"
+export CGO_CPPFLAGS=""
+export CGO_LDFLAGS="-L$libdir -L/path/to/library/directory"
+export LD_LIBRARY_PATH="$libdir"
+export GODEBUG=cgocheck=0
+"$@"

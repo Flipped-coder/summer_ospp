@@ -121,6 +121,9 @@ struct Request; // forward declaration for ContinueTimer
 
 struct ContinueTimer {
   ContinueTimer(struct ev_loop *loop, Request *req);
+ 
+  ContinueTimer(verto_ctx *verto_loop, Request *req);
+
   ~ContinueTimer();
 
   void start();

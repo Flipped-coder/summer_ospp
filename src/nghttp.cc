@@ -364,6 +364,10 @@ void Request::record_response_end_time() {
   timing.response_end_time = get_time();
 }
 
+
+// *************************************************************************************
+// *************************************************************************************
+// *************************************************************************************
 namespace {
 void continue_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
   auto client = static_cast<HttpClient *>(ev_userdata(loop));
@@ -383,23 +387,58 @@ void continue_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
   client->signal_write();
 }
 } // namespace
+namespace {
+  void verto_continue_timeout_cb(verto_ctx *verto_loop, verto_ev *ev) {
+    //auto client = static_cast<HttpClient *>();
+
+  }
+}
+// *************************************************************************************
+// *************************************************************************************
+// *************************************************************************************
+
+
 
 ContinueTimer::ContinueTimer(struct ev_loop *loop, Request *req) : loop(loop) {
   ev_timer_init(&timer, continue_timeout_cb, 1., 0.);
   timer.data = req;
+printf("\n This ContinueTime");
 }
+
+ContinueTimer::ContinueTimer(verto_ctx *verto_loop, Request *req) : verto_loop(verto_loop) {
+
+  printf("\n This ContinueTimer 自定义构造函数\n");
+}
+
+
 
 ContinueTimer::~ContinueTimer() { stop(); }
 
-void ContinueTimer::start() { ev_timer_start(loop, &timer); }
 
-void ContinueTimer::stop() { ev_timer_stop(loop, &timer); }
+
+void ContinueTimer::start() { 
+  ev_timer_start(loop, &timer);
+  //void *priv = verto_timer->priv;
+  verto_del(verto_timer);
+  verto_timer = verto_add_timeout(verto_loop, VERTO_EV_FLAG_NONE, verto_continue_timeout_cb, 1.0);
+  //verto_timer->priv = priv;
+}
+
+void ContinueTimer::stop() { 
+  ev_timer_stop(loop, &timer); 
+  verto_del(verto_timer);
+}
 
 void ContinueTimer::dispatch_continue() {
   // Only dispatch the timeout callback if it hasn't already been called.
   if (ev_is_active(&timer)) {
     ev_feed_event(loop, &timer, 0);
   }
+  // 如果该观察者还没有执行回调函数，则立即执行
+  // if (verto_timer->ctx) {
+  //   verto_continue_timeout_cb(verto_loop, verto_timer);
+  //   verto_del(verto_timer);
+  // }
 }
 
 namespace {

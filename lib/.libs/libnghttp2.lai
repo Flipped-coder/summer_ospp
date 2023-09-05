@@ -17,7 +17,7 @@ old_library='libnghttp2.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/path/to/library/directory -lverto'
+dependency_libs=''
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

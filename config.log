@@ -86,17 +86,17 @@ gcc: fatal error: no input files
 compilation terminated.
 configure:4177: $? = 1
 configure:4197: checking whether the C compiler works
-configure:4219: gcc   -L/path/to/library/directory conftest.c -lverto >&5
+configure:4219: gcc    conftest.c  >&5
 configure:4223: $? = 0
 configure:4273: result: yes
 configure:4276: checking for C compiler default output file name
 configure:4278: result: a.out
 configure:4284: checking for suffix of executables
-configure:4291: gcc -o conftest   -L/path/to/library/directory conftest.c -lverto >&5
+configure:4291: gcc -o conftest    conftest.c  >&5
 configure:4295: $? = 0
 configure:4318: result: 
 configure:4340: checking whether we are cross compiling
-configure:4348: gcc -o conftest   -L/path/to/library/directory conftest.c -lverto >&5
+configure:4348: gcc -o conftest    conftest.c  >&5
 configure:4352: $? = 0
 configure:4359: ./conftest
 configure:4363: $? = 0
@@ -356,7 +356,7 @@ configure:7224: checking command to parse /usr/bin/nm -B output from gcc object
 configure:7378: gcc -c -g -O2  conftest.c >&5
 configure:7381: $? = 0
 configure:7385: /usr/bin/nm -B conftest.o | /usr/bin/sed -n -e 's/^.*[	 ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | /usr/bin/sed '/ __gnu_lto/d' > conftest.nm
-configure:7451: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c conftstm.o >&5
+configure:7451: gcc -o conftest -g -O2   conftest.c conftstm.o >&5
 configure:7454: $? = 0
 configure:7492: result: ok
 configure:7539: checking for sysroot
@@ -390,7 +390,7 @@ configure:9743: gcc -c -g -O2  -fPIC -DPIC -DPIC conftest.c >&5
 configure:9747: $? = 0
 configure:9760: result: yes
 configure:9789: checking if gcc static flag -static works
-configure:9818: result: no
+configure:9818: result: yes
 configure:9833: checking if gcc supports -c -o file.o
 configure:9855: gcc -c -g -O2  -o out/conftest2.o conftest.c >&5
 configure:9859: $? = 0
@@ -406,7 +406,7 @@ configure:11308: gcc -shared  -fPIC -DPIC conftest.o  -v -Wl,-soname -Wl,conftes
 configure:11311: $? = 0
 configure:11325: result: no
 configure:11485: checking dynamic linker characteristics
-configure:12067: gcc -o conftest -g -O2  -L/path/to/library/directory -Wl,-rpath -Wl,/foo conftest.c -lverto >&5
+configure:12067: gcc -o conftest -g -O2   -Wl,-rpath -Wl,/foo conftest.c  >&5
 configure:12067: $? = 0
 configure:12318: result: GNU/Linux ld.so
 configure:12440: checking how to hardcode library paths into programs
@@ -817,7 +817,7 @@ configure:20324: $PKG_CONFIG --exists --print-errors "zlib >= 1.2.3"
 configure:20327: $? = 0
 configure:20365: result: yes
 configure:20388: checking for library containing dlopen
-configure:20418: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:20418: gcc -o conftest -g -O2   conftest.c  >&5
 configure:20418: $? = 0
 configure:20438: result: none required
 configure:20456: checking for CUNIT
@@ -827,7 +827,7 @@ configure:20480: $PKG_CONFIG --exists --print-errors "cunit >= 2.1"
 configure:20483: $? = 0
 configure:20521: result: yes
 configure:20613: checking for ev_time in -lev
-configure:20636: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lev -lm -lverto >&5
+configure:20636: gcc -o conftest -g -O2   conftest.c -lev -lm  >&5
 configure:20636: $? = 0
 configure:20646: result: yes
 configure:20656: checking for ev.h
@@ -841,12 +841,12 @@ configure:20715: $PKG_CONFIG --exists --print-errors "openssl >= 1.0.1"
 configure:20718: $? = 0
 configure:20756: result: yes
 configure:20771: checking for SSL_is_quic
-configure:20789: gcc -o conftest  -g -O2  -L/path/to/library/directory conftest.c -lssl -lcrypto  -lverto >&5
+configure:20789: gcc -o conftest  -g -O2   conftest.c -lssl -lcrypto   >&5
 conftest.c: In function 'main':
 conftest.c:55:7: warning: implicit declaration of function 'SSL_is_quic' [-Wimplicit-function-declaration]
    55 |       SSL_is_quic(ssl);
       |       ^~~~~~~~~~~
-/usr/bin/ld: /tmp/cc6saqfn.o: in function `main':
+/usr/bin/ld: /tmp/cc7TOnRT.o: in function `main':
 /home/summer_ospp/conftest.c:55: undefined reference to `SSL_is_quic'
 collect2: error: ld returned 1 exit status
 configure:20789: $? = 1
@@ -912,13 +912,13 @@ configure: failed program was:
 | }
 configure:20794: result: no
 configure:20801: checking for SSL_set_quic_early_data_context
-configure:20819: gcc -o conftest  -g -O2  -L/path/to/library/directory conftest.c -lssl -lcrypto  -lverto >&5
+configure:20819: gcc -o conftest  -g -O2   conftest.c -lssl -lcrypto   >&5
 conftest.c: In function 'main':
 conftest.c:55:7: warning: implicit declaration of function 'SSL_set_quic_early_data_context'; did you mean 'SSL_set_allow_early_data_cb'? [-Wimplicit-function-declaration]
    55 |       SSL_set_quic_early_data_context(ssl, NULL, 0);
       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |       SSL_set_allow_early_data_cb
-/usr/bin/ld: /tmp/ccLpeyo0.o: in function `main':
+/usr/bin/ld: /tmp/ccaA8FBB.o: in function `main':
 /home/summer_ospp/conftest.c:55: undefined reference to `SSL_set_quic_early_data_context'
 collect2: error: ld returned 1 exit status
 configure:20819: $? = 1
@@ -1066,8 +1066,8 @@ configure:21711: $PKG_CONFIG --exists --print-errors "libxml-2.0 >= 2.6.26"
 configure:21714: $? = 0
 configure:21752: result: yes
 configure:21785: checking for library containing malloc_stats_print
-configure:21815: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
-/usr/bin/ld: /tmp/ccz9y2xk.o: in function `main':
+configure:21815: gcc -o conftest -g -O2   conftest.c  >&5
+/usr/bin/ld: /tmp/ccgROsE5.o: in function `main':
 /home/summer_ospp/conftest.c:57: undefined reference to `malloc_stats_print'
 collect2: error: ld returned 1 exit status
 configure:21815: $? = 1
@@ -1132,7 +1132,7 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:21815: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -ljemalloc -pthread -lverto >&5
+configure:21815: gcc -o conftest -g -O2   conftest.c -ljemalloc -pthread  >&5
 /usr/bin/ld: cannot find -ljemalloc
 collect2: error: ld returned 1 exit status
 configure:21815: $? = 1
@@ -1199,8 +1199,8 @@ configure: failed program was:
 | }
 configure:21835: result: no
 configure:21849: checking for library containing je_malloc_stats_print
-configure:21879: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
-/usr/bin/ld: /tmp/ccSmMk8R.o: in function `main':
+configure:21879: gcc -o conftest -g -O2   conftest.c  >&5
+/usr/bin/ld: /tmp/ccnZsI90.o: in function `main':
 /home/summer_ospp/conftest.c:57: undefined reference to `je_malloc_stats_print'
 collect2: error: ld returned 1 exit status
 configure:21879: $? = 1
@@ -1265,7 +1265,7 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:21879: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -ljemalloc -pthread -lverto >&5
+configure:21879: gcc -o conftest -g -O2   conftest.c -ljemalloc -pthread  >&5
 /usr/bin/ld: cannot find -ljemalloc
 collect2: error: ld returned 1 exit status
 configure:21879: $? = 1
@@ -2967,40 +2967,40 @@ configure: failed program was:
 | }
 configure:22921: result: no
 configure:22947: checking size of int *
-configure:22953: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:22953: gcc -o conftest -g -O2   conftest.c  >&5
 configure:22953: $? = 0
 configure:22953: ./conftest
 configure:22953: $? = 0
 configure:22968: result: 8
 configure:22981: checking size of time_t
-configure:22987: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:22987: gcc -o conftest -g -O2   conftest.c  >&5
 configure:22987: $? = 0
 configure:22987: ./conftest
 configure:22987: $? = 0
 configure:23002: result: 8
 configure:23016: checking for working chown
-configure:23056: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23056: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23056: $? = 0
 configure:23056: ./conftest
 configure:23056: $? = 0
 configure:23069: result: yes
 configure:23077: checking for error_at_line
-configure:23094: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23094: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23094: $? = 0
 configure:23103: result: yes
 configure:23119: checking for fork
-configure:23119: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23119: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:86:6: warning: conflicting types for built-in function 'fork'; expected 'int(void)' [-Wbuiltin-declaration-mismatch]
    86 | char fork ();
       |      ^~~~
 configure:23119: $? = 0
 configure:23119: result: yes
 configure:23119: checking for vfork
-configure:23119: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23119: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23119: $? = 0
 configure:23119: result: yes
 configure:23132: checking for working fork
-configure:23156: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23156: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23156: $? = 0
 configure:23156: ./conftest
 configure:23156: $? = 0
@@ -3113,13 +3113,13 @@ configure:23468: gcc -c -g -O2  conftest.c >&5
 configure:23468: $? = 0
 configure:23477: result: yes
 configure:23485: checking for working strnlen
-configure:23525: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23525: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23525: $? = 0
 configure:23525: ./conftest
 configure:23525: $? = 0
 configure:23536: result: yes
 configure:23546: checking for _Exit
-configure:23546: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23546: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:93:6: warning: conflicting types for built-in function '_Exit'; expected 'void(int)' [-Wbuiltin-declaration-mismatch]
    93 | char _Exit ();
       |      ^~~~~
@@ -3129,27 +3129,27 @@ conftest.c:85:1: note: '_Exit' is declared in header '<stdlib.h>'
 configure:23546: $? = 0
 configure:23546: result: yes
 configure:23552: checking for accept4
-configure:23552: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23552: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23552: $? = 0
 configure:23552: result: yes
 configure:23558: checking for dup2
-configure:23558: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23558: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23558: $? = 0
 configure:23558: result: yes
 configure:23564: checking for getcwd
-configure:23564: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23564: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23564: $? = 0
 configure:23564: result: yes
 configure:23570: checking for getpwnam
-configure:23570: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23570: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23570: $? = 0
 configure:23570: result: yes
 configure:23576: checking for localtime_r
-configure:23576: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23576: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23576: $? = 0
 configure:23576: result: yes
 configure:23582: checking for memchr
-configure:23582: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23582: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:99:6: warning: conflicting types for built-in function 'memchr'; expected 'void *(const void *, int,  long unsigned int)' [-Wbuiltin-declaration-mismatch]
    99 | char memchr ();
       |      ^~~~~~
@@ -3159,7 +3159,7 @@ conftest.c:91:1: note: 'memchr' is declared in header '<string.h>'
 configure:23582: $? = 0
 configure:23582: result: yes
 configure:23588: checking for memmove
-configure:23588: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23588: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:100:6: warning: conflicting types for built-in function 'memmove'; expected 'void *(void *, const void *, long unsigned int)' [-Wbuiltin-declaration-mismatch]
   100 | char memmove ();
       |      ^~~~~~~
@@ -3169,7 +3169,7 @@ conftest.c:92:1: note: 'memmove' is declared in header '<string.h>'
 configure:23588: $? = 0
 configure:23588: result: yes
 configure:23594: checking for memset
-configure:23594: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23594: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:101:6: warning: conflicting types for built-in function 'memset'; expected 'void *(void *, int,  long unsigned int)' [-Wbuiltin-declaration-mismatch]
   101 | char memset ();
       |      ^~~~~~
@@ -3179,22 +3179,22 @@ conftest.c:93:1: note: 'memset' is declared in header '<string.h>'
 configure:23594: $? = 0
 configure:23594: result: yes
 configure:23600: checking for mkostemp
-configure:23600: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23600: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23600: $? = 0
 configure:23600: result: yes
 configure:23606: checking for socket
-configure:23606: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23606: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23606: $? = 0
 configure:23606: result: yes
 configure:23612: checking for sqrt
-configure:23612: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23612: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:104:6: warning: conflicting types for built-in function 'sqrt'; expected 'double(double)' [-Wbuiltin-declaration-mismatch]
   104 | char sqrt ();
       |      ^~~~
 conftest.c:96:1: note: 'sqrt' is declared in header '<math.h>'
    95 | #include <limits.h>
    96 | #undef sqrt
-/usr/bin/ld: /tmp/ccgXNBJA.o: in function `main':
+/usr/bin/ld: /tmp/cchWu6qu.o: in function `main':
 /home/summer_ospp/conftest.c:115: undefined reference to `sqrt'
 collect2: error: ld returned 1 exit status
 configure:23612: $? = 1
@@ -3319,7 +3319,7 @@ configure: failed program was:
 | }
 configure:23612: result: no
 configure:23618: checking for strchr
-configure:23618: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23618: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:104:6: warning: conflicting types for built-in function 'strchr'; expected 'char *(const char *, int)' [-Wbuiltin-declaration-mismatch]
   104 | char strchr ();
       |      ^~~~~~
@@ -3329,25 +3329,25 @@ conftest.c:96:1: note: 'strchr' is declared in header '<string.h>'
 configure:23618: $? = 0
 configure:23618: result: yes
 configure:23624: checking for strdup
-configure:23624: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23624: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:105:6: warning: conflicting types for built-in function 'strdup'; expected 'char *(const char *)' [-Wbuiltin-declaration-mismatch]
   105 | char strdup ();
       |      ^~~~~~
 configure:23624: $? = 0
 configure:23624: result: yes
 configure:23630: checking for strerror
-configure:23630: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23630: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23630: $? = 0
 configure:23630: result: yes
 configure:23636: checking for strndup
-configure:23636: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23636: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:107:6: warning: conflicting types for built-in function 'strndup'; expected 'char *(const char *, long unsigned int)' [-Wbuiltin-declaration-mismatch]
   107 | char strndup ();
       |      ^~~~~~~
 configure:23636: $? = 0
 configure:23636: result: yes
 configure:23642: checking for strstr
-configure:23642: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23642: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:108:6: warning: conflicting types for built-in function 'strstr'; expected 'char *(const char *, const char *)' [-Wbuiltin-declaration-mismatch]
   108 | char strstr ();
       |      ^~~~~~
@@ -3357,19 +3357,19 @@ conftest.c:100:1: note: 'strstr' is declared in header '<string.h>'
 configure:23642: $? = 0
 configure:23642: result: yes
 configure:23648: checking for strtol
-configure:23648: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23648: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23648: $? = 0
 configure:23648: result: yes
 configure:23654: checking for strtoul
-configure:23654: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23654: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23654: $? = 0
 configure:23654: result: yes
 configure:23660: checking for timegm
-configure:23660: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23660: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23660: $? = 0
 configure:23660: result: yes
 configure:23670: checking for timerfd_create
-configure:23670: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
+configure:23670: gcc -o conftest -g -O2   conftest.c  >&5
 configure:23670: $? = 0
 configure:23670: result: yes
 configure:23682: checking whether initgroups is declared
@@ -3460,7 +3460,7 @@ configure:28190: summary of build options:
     Compiler:
       C compiler:     gcc
       CFLAGS:         -g -O2
-      LDFLAGS:        -L/path/to/library/directory
+      LDFLAGS:        
       C++ compiler:   g++ -std=c++14
       CXXFLAGS:       -g -O2
       CXXCPP:         g++ -E -std=c++14
@@ -3472,7 +3472,7 @@ configure:28190: summary of build options:
       EXTRACFLAG:     -fvisibility=hidden
       BPFCFLAGS:      
       EXTRABPFCFLAGS: 
-      LIBS:           -lverto
+      LIBS:           
       DEFS:           -DHAVE_CONFIG_H
       EXTRA_DEFS:     
     Library:
@@ -3561,8 +3561,8 @@ ac_cv_env_JEMALLOC_CFLAGS_set=
 ac_cv_env_JEMALLOC_CFLAGS_value=
 ac_cv_env_JEMALLOC_LIBS_set=
 ac_cv_env_JEMALLOC_LIBS_value=
-ac_cv_env_LDFLAGS_set=set
-ac_cv_env_LDFLAGS_value=-L/path/to/library/directory
+ac_cv_env_LDFLAGS_set=
+ac_cv_env_LDFLAGS_value=
 ac_cv_env_LIBBPF_CFLAGS_set=
 ac_cv_env_LIBBPF_CFLAGS_value=
 ac_cv_env_LIBBPF_LIBS_set=
@@ -3595,8 +3595,8 @@ ac_cv_env_LIBNGTCP2_CRYPTO_QUICTLS_LIBS_set=
 ac_cv_env_LIBNGTCP2_CRYPTO_QUICTLS_LIBS_value=
 ac_cv_env_LIBNGTCP2_LIBS_set=
 ac_cv_env_LIBNGTCP2_LIBS_value=
-ac_cv_env_LIBS_set=set
-ac_cv_env_LIBS_value=-lverto
+ac_cv_env_LIBS_set=
+ac_cv_env_LIBS_value=
 ac_cv_env_LIBTOOL_LDFLAGS_set=
 ac_cv_env_LIBTOOL_LDFLAGS_value=
 ac_cv_env_LIBXML2_CFLAGS_set=
@@ -3766,7 +3766,7 @@ lt_cv_prog_compiler_pic_CXX='-fPIC -DPIC'
 lt_cv_prog_compiler_pic_works=yes
 lt_cv_prog_compiler_pic_works_CXX=yes
 lt_cv_prog_compiler_rtti_exceptions=no
-lt_cv_prog_compiler_static_works=no
+lt_cv_prog_compiler_static_works=yes
 lt_cv_prog_compiler_static_works_CXX=no
 lt_cv_prog_gnu_ld=yes
 lt_cv_prog_gnu_ldcxx=yes
@@ -3880,7 +3880,7 @@ JANSSON_LIBS=''
 JEMALLOC_CFLAGS=''
 JEMALLOC_LIBS=''
 LD='/usr/bin/ld -m elf_x86_64'
-LDFLAGS='-L/path/to/library/directory'
+LDFLAGS=''
 LIBBPF_CFLAGS=''
 LIBBPF_LIBS=''
 LIBCARES_CFLAGS=''
@@ -3900,7 +3900,7 @@ LIBNGTCP2_CRYPTO_QUICTLS_CFLAGS=''
 LIBNGTCP2_CRYPTO_QUICTLS_LIBS=''
 LIBNGTCP2_LIBS=''
 LIBOBJS=''
-LIBS='-lverto'
+LIBS=''
 LIBTOOL='$(SHELL) $(top_builddir)/libtool'
 LIBTOOL_LDFLAGS=''
 LIBXML2_CFLAGS='-I/usr/include/libxml2 '

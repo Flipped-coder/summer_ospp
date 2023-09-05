@@ -23,7 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "nghttp.h"
-
+#include <stdio.h>
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #  include <unistd.h>
@@ -3160,5 +3160,6 @@ int main(int argc, char **argv) {
 } // namespace nghttp2
 
 int main(int argc, char **argv) {
+  printf("\n\nThis is summer_ospp_nghttp\n\n");	
   return nghttp2::run_app(nghttp2::main, argc, argv);
 }

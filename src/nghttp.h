@@ -226,12 +226,21 @@ enum class ClientState { IDLE, CONNECTED };
 struct HttpClient {
   HttpClient(const nghttp2_session_callbacks *callbacks, struct ev_loop *loop,
              SSL_CTX *ssl_ctx);
+  HttpClient(const nghttp2_session_callbacks *callbacks, verto_ctx *verto_loop, SSL_CTX *ssl_ctx);
+
+
+
   ~HttpClient();
 
   bool need_upgrade() const;
   int resolve_host(const std::string &host, uint16_t port);
   int initiate_connection();
+
+
   void disconnect();
+  void verto_disconnect();
+
+
 
   int noop();
   int read_clear();

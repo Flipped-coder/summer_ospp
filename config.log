@@ -846,7 +846,7 @@ conftest.c: In function 'main':
 conftest.c:55:7: warning: implicit declaration of function 'SSL_is_quic' [-Wimplicit-function-declaration]
    55 |       SSL_is_quic(ssl);
       |       ^~~~~~~~~~~
-/usr/bin/ld: /tmp/ccO4QnZt.o: in function `main':
+/usr/bin/ld: /tmp/cc2Ae16e.o: in function `main':
 /home/summer_ospp/conftest.c:55: undefined reference to `SSL_is_quic'
 collect2: error: ld returned 1 exit status
 configure:20789: $? = 1
@@ -918,7 +918,7 @@ conftest.c:55:7: warning: implicit declaration of function 'SSL_set_quic_early_d
    55 |       SSL_set_quic_early_data_context(ssl, NULL, 0);
       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |       SSL_set_allow_early_data_cb
-/usr/bin/ld: /tmp/ccRJWiG9.o: in function `main':
+/usr/bin/ld: /tmp/ccjE9Bi6.o: in function `main':
 /home/summer_ospp/conftest.c:55: undefined reference to `SSL_set_quic_early_data_context'
 collect2: error: ld returned 1 exit status
 configure:20819: $? = 1
@@ -1067,7 +1067,7 @@ configure:21714: $? = 0
 configure:21752: result: yes
 configure:21785: checking for library containing malloc_stats_print
 configure:21815: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
-/usr/bin/ld: /tmp/ccnJ6BVq.o: in function `main':
+/usr/bin/ld: /tmp/cc1drQN3.o: in function `main':
 /home/summer_ospp/conftest.c:57: undefined reference to `malloc_stats_print'
 collect2: error: ld returned 1 exit status
 configure:21815: $? = 1
@@ -1200,7 +1200,7 @@ configure: failed program was:
 configure:21835: result: no
 configure:21849: checking for library containing je_malloc_stats_print
 configure:21879: gcc -o conftest -g -O2  -L/path/to/library/directory conftest.c -lverto >&5
-/usr/bin/ld: /tmp/cc7DC5hR.o: in function `main':
+/usr/bin/ld: /tmp/ccb8gkL0.o: in function `main':
 /home/summer_ospp/conftest.c:57: undefined reference to `je_malloc_stats_print'
 collect2: error: ld returned 1 exit status
 configure:21879: $? = 1
@@ -3194,7 +3194,7 @@ conftest.c:104:6: warning: conflicting types for built-in function 'sqrt'; expec
 conftest.c:96:1: note: 'sqrt' is declared in header '<math.h>'
    95 | #include <limits.h>
    96 | #undef sqrt
-/usr/bin/ld: /tmp/cc7l13iv.o: in function `main':
+/usr/bin/ld: /tmp/cc2WtJuo.o: in function `main':
 /home/summer_ospp/conftest.c:115: undefined reference to `sqrt'
 collect2: error: ld returned 1 exit status
 configure:23612: $? = 1

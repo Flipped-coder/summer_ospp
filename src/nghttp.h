@@ -229,40 +229,63 @@ struct HttpClient {
   HttpClient(const nghttp2_session_callbacks *callbacks, verto_ctx *verto_loop, SSL_CTX *ssl_ctx);
 
 
-
   ~HttpClient();
 
   bool need_upgrade() const;
   int resolve_host(const std::string &host, uint16_t port);
-  int initiate_connection();
+  int noop();
 
+
+  int initiate_connection();
+  int verto_initiate_connection();
 
   void disconnect();
   void verto_disconnect();
 
 
-
-  int noop();
   int read_clear();
+  int verto_read_clear();
+
   int write_clear();
+  int verto_write_clear();
+
   int connected();
+  int verto_connected();
+
   int tls_handshake();
+  int verto_tls_handshake();
+
   int read_tls();
+  int verto_read_tls();
+
   int write_tls();
+  int verto_write_tls();
 
   int do_read();
   int do_write();
 
   int on_upgrade_connect();
+  int verto_on_upgrade_connect();
+
   int on_upgrade_read(const uint8_t *data, size_t len);
+  int verto_on_upgrade_read(const uint8_t *data, size_t len);
+
   int on_read(const uint8_t *data, size_t len);
+  int verto_on_read(const uint8_t *data, size_t len);
+
   int on_write();
+  int verto_on_write();
 
   int connection_made();
+  int verto_connection_made();
+
   void connect_fail();
+  void verto_connect_fail();
+
   void request_done(Request *req);
 
   void signal_write();
+  void verto_signal_write();
 
   bool all_requests_processed() const;
   void update_hostport();

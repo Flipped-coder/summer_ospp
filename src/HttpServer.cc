@@ -23,7 +23,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "HttpServer.h"
-
+ 
 #include <sys/stat.h>
 #ifdef HAVE_SYS_SOCKET_H
 #  include <sys/socket.h>
@@ -76,6 +76,9 @@ using namespace std::chrono_literals;
 
 namespace nghttp2 {
 
+
+
+#pragma region Config
 namespace {
 // TODO could be constexpr
 constexpr auto DEFAULT_HTML = StringRef::from_lit("index.html");
@@ -96,8 +99,12 @@ void print_session_id(int64_t id) { std::cout << "[id=" << id << "] "; }
 
 Config::Config()
     : mime_types_file("/etc/mime.types"),
+
       stream_read_timeout(1_min),
       stream_write_timeout(1_min),
+      verto_stream_read_timeout(1_min),
+      verto_stream_write_timeout(1_min),
+
       data_ptr(nullptr),
       padding(0),
       num_worker(1),
@@ -120,7 +127,14 @@ Config::Config()
       no_rfc7540_pri(false) {}
 
 Config::~Config() {}
+#pragma endregion
 
+
+
+
+
+
+#pragma region Stream
 namespace {
 void stream_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
   int rv;
@@ -234,6 +248,10 @@ bool validate_file_entry(FileEntry *ent,
 }
 } // namespace
 
+
+
+
+#pragma region Sessions
 class Sessions {
 public:
   Sessions(HttpServer *sv, struct ev_loop *loop, const Config *config,
@@ -450,6 +468,11 @@ void release_fd_cb(struct ev_loop *loop, ev_timer *w, int revents) {
   sessions->release_unused_fd();
 }
 } // namespace
+#pragma endregion
+
+
+
+
 
 Stream::Stream(Http2Handler *handler, int32_t stream_id)
     : balloc(1024, 1024),
@@ -487,6 +510,18 @@ Stream::~Stream() {
   ev_timer_stop(loop, &rtimer);
   ev_timer_stop(loop, &wtimer);
 }
+#pragma endregion
+
+
+
+
+
+
+
+
+
+
+
 
 namespace {
 void on_session_closed(Http2Handler *hd, int64_t session_id) {

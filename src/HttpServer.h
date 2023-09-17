@@ -21,7 +21,7 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+ */ 
 #ifndef HTTP_SERVER_H
 #define HTTP_SERVER_H
 
@@ -40,6 +40,7 @@
 #include <openssl/ssl.h>
 
 #include <ev.h>
+#include <verto-module.h>
 
 #include <nghttp2/nghttp2.h>
 
@@ -62,8 +63,12 @@ struct Config {
   std::string dh_param_file;
   std::string address;
   std::string mime_types_file;
-  ev_tstamp stream_read_timeout;
-  ev_tstamp stream_write_timeout;
+
+  ev_tstamp stream_read_timeout;        // 流的读取超时时间
+  double    verto_stream_read_timeout;
+  ev_tstamp stream_write_timeout;       // 流的写入超时时间
+  double    verto_stream_write_timeout;
+
   void *data_ptr;
   size_t padding;
   size_t num_worker;
@@ -142,8 +147,13 @@ struct Stream {
   RequestHeader header;
   Http2Handler *handler;
   FileEntry *file_ent;
-  ev_timer rtimer;
-  ev_timer wtimer;
+
+  ev_timer rtimer;            // 处理读取超时
+  verto_ev *verto_rtimer;
+
+  ev_timer wtimer;            // 处理写入超时
+  verto_ev *verto_wtimer;
+
   int64_t body_length;
   int64_t body_offset;
   // Total amount of bytes (sum of name and value length) used in
@@ -162,67 +172,102 @@ public:
   Http2Handler(Sessions *sessions, int fd, SSL *ssl, int64_t session_id);
   ~Http2Handler();
 
-  void remove_self();
-  void start_settings_timer();
-  int on_read();
-  int on_write();
-  int connection_made();
-  int verify_npn_result();
+  void remove_self();               // 移除自身
+  void start_settings_timer();      // 启动设置定时器
+  int on_read();                    // 处理读取操作
+  int on_write();                   // 处理写入操作
+  int connection_made();            // 处理连接建立操作
+  int verify_npn_result();          
 
+  // 提交文件响应
   int submit_file_response(const StringRef &status, Stream *stream,
                            time_t last_modified, off_t file_length,
                            const std::string *content_type,
-                           nghttp2_data_provider *data_prd);
+                           nghttp2_data_provider *data_prd);        
 
-  int submit_response(const StringRef &status, int32_t stream_id,
-                      nghttp2_data_provider *data_prd);
+  // 提交响应
+  int submit_response(const StringRef &status, int32_t stream_id, nghttp2_data_provider *data_prd);
 
-  int submit_response(const StringRef &status, int32_t stream_id,
-                      const HeaderRefs &headers,
-                      nghttp2_data_provider *data_prd);
+  int submit_response(const StringRef &status, int32_t stream_id, const HeaderRefs &headers, nghttp2_data_provider *data_prd);
 
+  // 提交非最终响应
   int submit_non_final_response(const std::string &status, int32_t stream_id);
 
+  // 提交PUSH_PROMISE消息
   int submit_push_promise(Stream *stream, const StringRef &push_path);
 
+  // 提交RST_STREAM消息
   int submit_rst_stream(Stream *stream, uint32_t error_code);
 
+  // 添加HTTP/2流
   void add_stream(int32_t stream_id, std::unique_ptr<Stream> stream);
+
+  // 移除HTTP/2流
   void remove_stream(int32_t stream_id);
+
+  // 获取HTTP/2流
   Stream *get_stream(int32_t stream_id);
+
+  // 获取会话ID
   int64_t session_id() const;
+
+  // 获取会话对象
   Sessions *get_sessions() const;
+
+  // 获取配置信息
   const Config *get_config() const;
+
+  // 移除设置定时器
   void remove_settings_timer();
+
+  // 终止会话
   void terminate_session(uint32_t error_code);
 
+  // 填充写缓冲区
   int fill_wb();
 
+  // 执行明文读取操作
   int read_clear();
+
+  // 执行明文写入操作
   int write_clear();
+
+  // 执行TLS握手
   int tls_handshake();
+
+  // 执行TLS读取操作
   int read_tls();
+
+  // 执行TLS写入操作
   int write_tls();
 
+  // 获取事件循环
   struct ev_loop *get_loop() const;
 
   using WriteBuf = Buffer<64_k>;
 
+  // 获取写缓冲区
   WriteBuf *get_wb();
 
 private:
-  ev_io wev_;
-  ev_io rev_;
-  ev_timer settings_timerev_;
-  std::map<int32_t, std::unique_ptr<Stream>> id2stream_;
-  WriteBuf wb_;
-  std::function<int(Http2Handler &)> read_, write_;
-  int64_t session_id_;
-  nghttp2_session *session_;
-  Sessions *sessions_;
-  SSL *ssl_;
-  const uint8_t *data_pending_;
-  size_t data_pendinglen_;
+  ev_io wev_;                     // 事件循环写入事件
+  verto_ev *verto_wev_;
+
+  ev_io rev_;                     // 事件循环读取事件
+  verto_ev *verto_rev_;
+
+  ev_timer settings_timerev_;     // 定时器事件
+  verto_ev *verto_settings_timerev_;
+
+  std::map<int32_t, std::unique_ptr<Stream>> id2stream_;    // HTTP/2流的映射
+  WriteBuf wb_;                                             // 写入缓冲区
+  std::function<int(Http2Handler &)> read_, write_;         // 读取和写入函数指针
+  int64_t session_id_;              // 会话ID
+  nghttp2_session *session_;        // nghttp2会话对象
+  Sessions *sessions_;              // 会话管理器
+  SSL *ssl_;                        // SSL/TLS对象
+  const uint8_t *data_pending_;     // 待处理的数据
+  size_t data_pendinglen_;          // 待处理数据的长度
   int fd_;
 };
 

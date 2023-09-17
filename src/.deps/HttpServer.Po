@@ -195,7 +195,8 @@ HttpServer.o: HttpServer.cc /usr/include/stdc-predef.h HttpServer.h \
  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_64.h \
  /usr/include/asm-generic/posix_types.h /usr/include/bits/statx-generic.h \
  /usr/include/bits/types/struct_statx_timestamp.h \
- /usr/include/bits/types/struct_statx.h ../lib/includes/nghttp2/nghttp2.h \
+ /usr/include/bits/types/struct_statx.h /usr/include/verto-module.h \
+ /usr/include/verto.h ../lib/includes/nghttp2/nghttp2.h \
  ../lib/includes/nghttp2/nghttp2ver.h http2.h \
  /usr/include/c++/10.3.1/cstring ../third-party/url-parser/url_parser.h \
  util.h /usr/include/getopt.h /usr/include/bits/getopt_ext.h \
@@ -568,6 +569,8 @@ nghttp2_config.h:
 /usr/include/bits/statx-generic.h:
 /usr/include/bits/types/struct_statx_timestamp.h:
 /usr/include/bits/types/struct_statx.h:
+/usr/include/verto-module.h:
+/usr/include/verto.h:
 ../lib/includes/nghttp2/nghttp2.h:
 ../lib/includes/nghttp2/nghttp2ver.h:
 http2.h:

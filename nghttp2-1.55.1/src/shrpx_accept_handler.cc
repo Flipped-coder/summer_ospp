@@ -43,6 +43,8 @@ namespace {
 void acceptcb(struct ev_loop *loop, ev_io *w, int revent) {
   printf("\n shrpx_accept_handler:          This is acceptcb \n");
   printf("\n\n fd = %d \n\n", w->fd);
+  pid_t pid = getpid();
+  printf("Current process ID (PID): %d\n", pid);
   auto h = static_cast<AcceptHandler *>(w->data);
   h->accept_connection();
 }

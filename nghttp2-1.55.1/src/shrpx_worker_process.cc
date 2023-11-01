@@ -152,7 +152,8 @@ namespace {
 void ipc_readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_worker_process:          This is ipc_readcb \n");
   printf("\n\n fd = %d \n\n", w->fd);
-
+  pid_t pid = getpid();
+  printf("Current process ID (PID): %d\n", pid);
   auto conn_handler = static_cast<ConnectionHandler *>(w->data);
   std::array<uint8_t, 1024> buf;
   ssize_t nread;

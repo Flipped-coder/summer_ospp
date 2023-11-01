@@ -151,7 +151,8 @@ void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_http_downstream_connection:          This is readcb \n");
 
   printf("\n\n fd = %d \n\n", w->fd);
-
+  pid_t pid = getpid();
+  printf("Current process ID (PID): %d\n", pid);
   int rv;
   auto conn = static_cast<Connection *>(w->data);
   auto dconn = static_cast<HttpDownstreamConnection *>(conn->data);

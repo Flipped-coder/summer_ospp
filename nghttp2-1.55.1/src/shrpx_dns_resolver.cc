@@ -87,7 +87,8 @@ namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_dns_resolver:          This is readcb \n");
   printf("\n\n fd = %d \n\n", w->fd);
-
+  pid_t pid = getpid();
+  printf("Current process ID (PID): %d\n", pid);
   auto resolv = static_cast<DNSResolver *>(w->data);
   resolv->on_read(w->fd);
   process_result(resolv);

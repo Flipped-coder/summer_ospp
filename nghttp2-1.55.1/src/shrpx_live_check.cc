@@ -38,7 +38,8 @@ namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_live_check:          This is readcb \n");
   printf("\n\n fd = %d \n\n", w->fd);
-
+  pid_t pid = getpid();
+  printf("Current process ID (PID): %d\n", pid);
   int rv;
   auto conn = static_cast<Connection *>(w->data);
   auto live_check = static_cast<LiveCheck *>(conn->data);

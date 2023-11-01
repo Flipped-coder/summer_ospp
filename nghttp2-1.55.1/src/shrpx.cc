@@ -1544,6 +1544,7 @@ namespace {
 void worker_process_ready_ipc_readcb(struct ev_loop *loop, ev_io *w,
                                      int revents) {
   printf("\n shrpx:          This is worker_process_ready_ipc_readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   std::array<uint8_t, 8> buf;
   ssize_t nread;

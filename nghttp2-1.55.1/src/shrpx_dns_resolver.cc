@@ -86,6 +86,7 @@ void process_result(DNSResolver *resolv) {
 namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_dns_resolver:          This is readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   auto resolv = static_cast<DNSResolver *>(w->data);
   resolv->on_read(w->fd);
@@ -96,6 +97,7 @@ void readcb(struct ev_loop *loop, ev_io *w, int revents) {
 namespace {
 void writecb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_dns_resolver:          This is writecb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   auto resolv = static_cast<DNSResolver *>(w->data);
   resolv->on_write(w->fd);

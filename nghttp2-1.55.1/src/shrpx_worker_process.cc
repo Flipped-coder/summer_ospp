@@ -151,6 +151,7 @@ void reopen_log(ConnectionHandler *conn_handler) {
 namespace {
 void ipc_readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_worker_process:          This is ipc_readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   auto conn_handler = static_cast<ConnectionHandler *>(w->data);
   std::array<uint8_t, 1024> buf;

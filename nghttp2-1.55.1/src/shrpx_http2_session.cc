@@ -130,6 +130,7 @@ void timeoutcb(struct ev_loop *loop, ev_timer *w, int revents) {
 namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_http2_session:          This is readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   int rv;
   auto conn = static_cast<Connection *>(w->data);
@@ -147,6 +148,7 @@ void readcb(struct ev_loop *loop, ev_io *w, int revents) {
 namespace {
 void writecb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_http2_session:          This is writecb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   int rv;
   auto conn = static_cast<Connection *>(w->data);

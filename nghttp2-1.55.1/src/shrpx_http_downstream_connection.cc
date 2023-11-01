@@ -148,6 +148,10 @@ void backend_retry(Downstream *downstream) {
 
 namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
+  printf("\n shrpx_http_downstream_connection:          This is readcb \n");
+
+  printf("\n\n fd = %d \n\n", w->fd);
+
   int rv;
   auto conn = static_cast<Connection *>(w->data);
   auto dconn = static_cast<HttpDownstreamConnection *>(conn->data);
@@ -169,6 +173,9 @@ void readcb(struct ev_loop *loop, ev_io *w, int revents) {
 
 namespace {
 void writecb(struct ev_loop *loop, ev_io *w, int revents) {
+  printf("\n shrpx_http_downstream_connection:          This is writecb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
+
   int rv;
   auto conn = static_cast<Connection *>(w->data);
   auto dconn = static_cast<HttpDownstreamConnection *>(conn->data);

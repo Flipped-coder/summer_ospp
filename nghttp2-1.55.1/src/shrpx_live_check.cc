@@ -37,6 +37,7 @@ constexpr size_t MAX_BUFFER_SIZE = 4_k;
 namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_live_check:          This is readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   int rv;
   auto conn = static_cast<Connection *>(w->data);

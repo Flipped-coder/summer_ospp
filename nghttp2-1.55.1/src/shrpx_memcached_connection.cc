@@ -58,6 +58,7 @@ void timeoutcb(struct ev_loop *loop, ev_timer *w, int revents) {
 namespace {
 void readcb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_memcached_connection:          This is readcb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   auto conn = static_cast<Connection *>(w->data);
   auto mconn = static_cast<MemcachedConnection *>(conn->data);
@@ -72,6 +73,7 @@ void readcb(struct ev_loop *loop, ev_io *w, int revents) {
 namespace {
 void writecb(struct ev_loop *loop, ev_io *w, int revents) {
   printf("\n shrpx_memcached_connection:          This is writecb \n");
+  printf("\n\n fd = %d \n\n", w->fd);
 
   auto conn = static_cast<Connection *>(w->data);
   auto mconn = static_cast<MemcachedConnection *>(conn->data);

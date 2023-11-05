@@ -848,6 +848,8 @@ void call_downstream_readcb(Http2Session *http2session,
 namespace {
 int on_stream_close_callback(nghttp2_session *session, int32_t stream_id,
                              uint32_t error_code, void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_stream_close_callback \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
   if (LOG_ENABLED(INFO)) {
     SSLOG(INFO, http2session)
@@ -924,6 +926,8 @@ namespace {
 int on_header_callback2(nghttp2_session *session, const nghttp2_frame *frame,
                         nghttp2_rcbuf *name, nghttp2_rcbuf *value,
                         uint8_t flags, void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_header_callback2 \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
   auto sd = static_cast<StreamData *>(
       nghttp2_session_get_stream_user_data(session, frame->hd.stream_id));
@@ -1034,6 +1038,8 @@ int on_invalid_header_callback2(nghttp2_session *session,
                                 const nghttp2_frame *frame, nghttp2_rcbuf *name,
                                 nghttp2_rcbuf *value, uint8_t flags,
                                 void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_invalid_header_callback2 \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
   auto sd = static_cast<StreamData *>(
       nghttp2_session_get_stream_user_data(session, frame->hd.stream_id));
@@ -1069,6 +1075,8 @@ int on_invalid_header_callback2(nghttp2_session *session,
 namespace {
 int on_begin_headers_callback(nghttp2_session *session,
                               const nghttp2_frame *frame, void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_begin_headers_callback \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
 
   switch (frame->hd.type) {
@@ -1117,6 +1125,8 @@ int on_begin_headers_callback(nghttp2_session *session,
 namespace {
 int on_response_headers(Http2Session *http2session, Downstream *downstream,
                         nghttp2_session *session, const nghttp2_frame *frame) {
+  printf("\n shrpx_http2_session:          This is on_response_headers \n");
+
   int rv;
 
   auto upstream = downstream->get_upstream();
@@ -1244,6 +1254,8 @@ int on_response_headers(Http2Session *http2session, Downstream *downstream,
 namespace {
 int on_frame_recv_callback(nghttp2_session *session, const nghttp2_frame *frame,
                            void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_frame_recv_callback \n");
+
   int rv;
   auto http2session = static_cast<Http2Session *>(user_data);
 
@@ -1427,6 +1439,8 @@ namespace {
 int on_data_chunk_recv_callback(nghttp2_session *session, uint8_t flags,
                                 int32_t stream_id, const uint8_t *data,
                                 size_t len, void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_data_chunk_recv_callback \n");
+
   int rv;
   auto http2session = static_cast<Http2Session *>(user_data);
   auto sd = static_cast<StreamData *>(
@@ -1490,6 +1504,8 @@ int on_data_chunk_recv_callback(nghttp2_session *session, uint8_t flags,
 namespace {
 int on_frame_send_callback(nghttp2_session *session, const nghttp2_frame *frame,
                            void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_frame_send_callback \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
 
   if (frame->hd.type == NGHTTP2_DATA || frame->hd.type == NGHTTP2_HEADERS) {
@@ -1537,6 +1553,8 @@ namespace {
 int on_frame_not_send_callback(nghttp2_session *session,
                                const nghttp2_frame *frame, int lib_error_code,
                                void *user_data) {
+  printf("\n shrpx_http2_session:          This is on_frame_not_send_callback \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
   if (LOG_ENABLED(INFO)) {
     SSLOG(INFO, http2session) << "Failed to send control frame type="
@@ -1589,6 +1607,8 @@ namespace {
 int send_data_callback(nghttp2_session *session, nghttp2_frame *frame,
                        const uint8_t *framehd, size_t length,
                        nghttp2_data_source *source, void *user_data) {
+  printf("\n shrpx_http2_session:          This is send_data_callback \n");
+
   auto http2session = static_cast<Http2Session *>(user_data);
   auto sd = static_cast<StreamData *>(
       nghttp2_session_get_stream_user_data(session, frame->hd.stream_id));

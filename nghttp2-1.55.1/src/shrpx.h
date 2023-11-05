@@ -47,6 +47,7 @@
 #if defined(HAVE_DECL_INITGROUPS) && !HAVE_DECL_INITGROUPS
 inline int initgroups(const char *user, gid_t group) { return 0; }
 #endif // defined(HAVE_DECL_INITGROUPS) && !HAVE_DECL_INITGROUPS
+#include <sys/types.h>
 
 #ifndef HAVE_BPF_STATS_TYPE
 /* Newer kernel should have this defined in linux/bpf.h */

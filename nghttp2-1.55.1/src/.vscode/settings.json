@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "array": "cpp"
+        "array": "cpp",
+        "string": "cpp",
+        "filesystem": "cpp"
     }
 }

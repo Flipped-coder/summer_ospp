@@ -58,6 +58,7 @@ constexpr size_t MAX_BUFFER_SIZE = 32_k;
 namespace {
 int on_stream_close_callback(nghttp2_session *session, int32_t stream_id,
                              uint32_t error_code, void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_stream_close_callback\n");
   auto upstream = static_cast<Http2Upstream *>(user_data);
   if (LOG_ENABLED(INFO)) {
     ULOG(INFO, upstream) << "Stream stream_id=" << stream_id
@@ -107,6 +108,8 @@ int on_stream_close_callback(nghttp2_session *session, int32_t stream_id,
 } // namespace
 
 int Http2Upstream::upgrade_upstream(HttpsUpstream *http) {
+  printf("\n shrpx_http2_upstream:            This is upgrade_upstream\n");
+
   int rv;
 
   auto &balloc = http->get_downstream()->get_block_allocator();
@@ -162,6 +165,8 @@ namespace {
 int on_header_callback2(nghttp2_session *session, const nghttp2_frame *frame,
                         nghttp2_rcbuf *name, nghttp2_rcbuf *value,
                         uint8_t flags, void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_header_callback2\n");
+
   auto namebuf = nghttp2_rcbuf_get_buf(name);
   auto valuebuf = nghttp2_rcbuf_get_buf(value);
   auto config = get_config();
@@ -235,6 +240,8 @@ int on_invalid_header_callback2(nghttp2_session *session,
                                 const nghttp2_frame *frame, nghttp2_rcbuf *name,
                                 nghttp2_rcbuf *value, uint8_t flags,
                                 void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_invalid_header_callback2\n");
+
   auto upstream = static_cast<Http2Upstream *>(user_data);
   auto downstream = static_cast<Downstream *>(
       nghttp2_session_get_stream_user_data(session, frame->hd.stream_id));
@@ -278,6 +285,8 @@ int on_begin_headers_callback(nghttp2_session *session,
 } // namespace
 
 void Http2Upstream::on_start_request(const nghttp2_frame *frame) {
+  printf("\n shrpx_http2_upstream:            This is on_start_request\n");
+
   auto downstream = std::make_unique<Downstream>(this, handler_->get_mcpool(),
                                                  frame->hd.stream_id);
   nghttp2_session_set_stream_user_data(session_, frame->hd.stream_id,
@@ -307,6 +316,8 @@ void Http2Upstream::on_start_request(const nghttp2_frame *frame) {
 
 int Http2Upstream::on_request_headers(Downstream *downstream,
                                       const nghttp2_frame *frame) {
+  printf("\n shrpx_http2_upstream:            This is on_request_headers\n");
+
   auto lgconf = log_config();
   lgconf->update_tstamp(std::chrono::system_clock::now());
   auto &req = downstream->request();
@@ -455,6 +466,8 @@ int Http2Upstream::on_request_headers(Downstream *downstream,
 }
 
 void Http2Upstream::start_downstream(Downstream *downstream) {
+  printf("\n shrpx_http2_upstream:            This is Http2Upstream::start_downstream\n");
+
   if (downstream_queue_.can_activate(downstream->request().authority)) {
     initiate_downstream(downstream);
     return;
@@ -464,6 +477,8 @@ void Http2Upstream::start_downstream(Downstream *downstream) {
 }
 
 void Http2Upstream::initiate_downstream(Downstream *downstream) {
+  printf("\n shrpx_http2_upstream:            This is Http2Upstream::initiate_downstream\n");
+
   int rv;
 
 #ifdef HAVE_MRUBY
@@ -545,6 +560,8 @@ void Http2Upstream::initiate_downstream(Downstream *downstream) {
 namespace {
 int on_frame_recv_callback(nghttp2_session *session, const nghttp2_frame *frame,
                            void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_frame_recv_callback\n");
+
   if (get_config()->http2.upstream.debug.frame_debug) {
     verbose_on_frame_recv_callback(session, frame, user_data);
   }
@@ -629,6 +646,8 @@ namespace {
 int on_data_chunk_recv_callback(nghttp2_session *session, uint8_t flags,
                                 int32_t stream_id, const uint8_t *data,
                                 size_t len, void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_data_chunk_recv_callback\n");
+
   auto upstream = static_cast<Http2Upstream *>(user_data);
   auto downstream = static_cast<Downstream *>(
       nghttp2_session_get_stream_user_data(session, stream_id));
@@ -662,6 +681,8 @@ int on_data_chunk_recv_callback(nghttp2_session *session, uint8_t flags,
 namespace {
 int on_frame_send_callback(nghttp2_session *session, const nghttp2_frame *frame,
                            void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_frame_send_callback\n");
+
   if (get_config()->http2.upstream.debug.frame_debug) {
     verbose_on_frame_send_callback(session, frame, user_data);
   }
@@ -809,6 +830,8 @@ namespace {
 int on_frame_not_send_callback(nghttp2_session *session,
                                const nghttp2_frame *frame, int lib_error_code,
                                void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is on_frame_not_send_callback\n");
+
   auto upstream = static_cast<Http2Upstream *>(user_data);
   if (LOG_ENABLED(INFO)) {
     ULOG(INFO, upstream) << "Failed to send control frame type="
@@ -838,6 +861,8 @@ namespace {
 int send_data_callback(nghttp2_session *session, nghttp2_frame *frame,
                        const uint8_t *framehd, size_t length,
                        nghttp2_data_source *source, void *user_data) {
+  printf("\n shrpx_http2_upstream:            This is send_data_callback\n");
+
   auto downstream = static_cast<Downstream *>(source->ptr);
   auto upstream = static_cast<Http2Upstream *>(downstream->get_upstream());
   auto body = downstream->get_response_buf();
@@ -892,6 +917,8 @@ uint32_t infer_upstream_rst_stream_error_code(uint32_t downstream_error_code) {
 
 namespace {
 void settings_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
+  printf("\n shrpx_http2_upstream:            This is settings_timeout_cb\n");
+
   auto upstream = static_cast<Http2Upstream *>(w->data);
   auto handler = upstream->get_client_handler();
   ULOG(INFO, upstream) << "SETTINGS timeout";
@@ -905,6 +932,8 @@ void settings_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
 
 namespace {
 void shutdown_timeout_cb(struct ev_loop *loop, ev_timer *w, int revents) {
+  printf("\n shrpx_http2_upstream:            This is shutdown_timeout_cb\n");
+
   auto upstream = static_cast<Http2Upstream *>(w->data);
   auto handler = upstream->get_client_handler();
   upstream->submit_goaway();
